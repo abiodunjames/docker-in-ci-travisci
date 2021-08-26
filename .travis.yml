@@ -1,0 +1,12 @@
+services:
+  - docker
+
+before_install:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker-compose  up -d --build
+script:
+  - docker-compose exec app pytest .
+  - docker build -t abiodunjames/example-app .
+  - docker push abiodunjames/example-app
+after_script:
+  - docker-compose down
