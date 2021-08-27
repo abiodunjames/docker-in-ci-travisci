@@ -5,7 +5,6 @@ env:
   - DOCKER_USERNAME=abiodunjames
 
 before_install:
-  - echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker-compose  up -d --build
 
 script: echo "Running jobs ..."
@@ -20,6 +19,7 @@ jobs:
       script: docker build -t abiodunjames/example-app .
     - stage: "Push"
       name: "Push to Docker Registry"
+      script: echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
       script: docker push abiodunjames/example-app
 
 after_script:
