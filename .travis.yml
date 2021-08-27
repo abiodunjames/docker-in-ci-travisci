@@ -6,8 +6,9 @@ env:
 
 before_install:
   - echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker-compose  up -d --build
 
-script: docker-compose  up -d --build
+script: echo "Running jobs ..."
 
 jobs:
   include:
